@@ -1,24 +1,25 @@
 <script context="module">
 	export async function load({ page }) {
-		const Hello = (await import(`../../posts/${page.params.slug}.md`)).default;
+		try {
+			const Post = await import(`../../posts/${page.params.slug}.md`);
 
-		/* 		const post = {
-			title: page.params.slug,
-			date: new Date(),
-			body: 'lorem ispum'
-		}; */
-
-		return {
-			props: {
-				Hello
-			}
-		};
+			return {
+				// Data passed into svelte component
+				props: {
+					Post: Post.default
+				}
+			};
+		} catch (e) {
+			return {
+				status: 404,
+				error: 'Post not found'
+			};
+		}
 	}
 </script>
 
 <script>
-	export let Hello;
+	export let Post;
 </script>
 
-<Hello />
-
+<svelte:component this={Post} />

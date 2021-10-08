@@ -1,4 +1,9 @@
-### Hello World!
+---
+title: Hello World
+slug: hello
+---
+
+# {title}
 
 lorem ipsum
 
